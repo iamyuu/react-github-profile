@@ -1,5 +1,9 @@
 # Search Github Repository
 
+A simple application for the github repository
+
+Demo url: [react-search-github-repository.vercel.app](https://react-search-github-repository.vercel.app)
+
 ## Libraries
 
 - [SWR](https://swr.vercel.app) for data fetching
