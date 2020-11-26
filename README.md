@@ -1,21 +1,20 @@
-# Search Github Repository
+# GitHub Profile
 
-A simple application for the github repository
+Simple application to display information from GitHub users.
 
-Demo url: [react-search-github-repository.vercel.app](https://react-search-github-repository.vercel.app)
+## User Stories
 
-## Libraries
-
-- [SWR](https://swr.vercel.app) for data fetching
-- [Chakra](https://chakra-ui.com) for looks and feel in general
-
-## Prerequisite
-
-- Node.js v12.0.0 or higher
+- [x] User can enter a username.
+- [x] User can click on search button to retrieve information.
+- [x] User should get an alert if the username is not valid.
+- [x] User can see the avatar, username, followers.
+- [x] User can see list repositories.
+- [x] User can see message if the repositories is empty.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
 - `yarn dev`: Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `yarn test`: Launches the test runner in the interactive watch mode.
 - `yarn build`: Builds the app for production to the `build` folder. It correctly bundles React in production mode and optimizes the build for the best performance.
