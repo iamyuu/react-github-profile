@@ -1,6 +1,6 @@
 const API_URL = process.env.REACT_APP_API_URL;
 
-function client(
+export default function client(
   endpoint,
   { data, headers: customHeaders, ...customConfig } = {}
 ) {
@@ -19,5 +19,3 @@ function client(
     return response.ok ? data : Promise.reject(data);
   });
 }
-
-export default client;
