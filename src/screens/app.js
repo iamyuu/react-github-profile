@@ -81,7 +81,7 @@ export default function App() {
       </Box>
 
       {!username && !error ? <EmptyState /> : null}
-      {username && error ? <ErrorFallback error={error} /> : null}
+      {error ? <ErrorFallback error={error} /> : null}
 
       {username && !error ? (
         <ErrorBoundary resetKeys={[username]} FallbackComponent={ErrorFallback}>
