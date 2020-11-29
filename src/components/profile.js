@@ -38,7 +38,7 @@ export default function ProfileDataView({ username }) {
       />
 
       <Heading as="h4" size="md" mt="4" textAlign="center">
-        <Link href={profile.html_url} breakout isExternal>
+        <Link href={profile.html_url} isExternal>
           {profile.name} (@{profile.login})
         </Link>
       </Heading>
