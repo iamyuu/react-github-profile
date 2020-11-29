@@ -6,6 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 export const handlers = [
   rest.get(`${API_URL}/users/:username`, (req, res, ctx) => {
     const { username } = req.params;
+
     if (username === '404') {
       return res(ctx.status(404), ctx.json({ message: 'Not Found' }));
     }

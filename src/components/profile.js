@@ -33,17 +33,25 @@ export default function ProfileDataView({ username }) {
       <Avatar
         mx="auto"
         size="lg"
+        aria-label="avatar"
         name={profile.name}
         src={profile.avatar_url}
       />
 
       <Heading as="h4" size="md" mt="4" textAlign="center">
-        <Link href={profile.html_url} isExternal>
-          {profile.name} (@{profile.login})
+        <Link href={profile.html_url} isExternal aria-label={profile.name}>
+          <Text as="span" aria-label="name">
+            {profile.name}
+          </Text>
+          <Text as="span" aria-label="username">
+            (@{profile.login})
+          </Text>
         </Link>
       </Heading>
 
-      <Text textAlign="center">{profile.bio}</Text>
+      <Text textAlign="center" aria-label="bio">
+        {profile.bio}
+      </Text>
     </Flex>
   );
 }

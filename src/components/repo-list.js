@@ -22,7 +22,7 @@ export function ReposFallback() {
 }
 
 function ReposEmptyState() {
-  return <Text>User doesn't have any repositories yet</Text>;
+  return <Text role="alert">User doesn't have any repositories yet</Text>;
 }
 
 // TODO: implementing infinite scroll
@@ -73,20 +73,26 @@ export default function ReposDataView({ username }) {
 
             {repo.language && (
               <WrapItem>
-                <Badge borderRadius="full" px="2">
+                <Badge borderRadius="full" px="2" aria-label="language">
                   {repo.language}
                 </Badge>
               </WrapItem>
             )}
           </Wrap>
 
-          <Link href={repo.html_url} isExternal>
-            <Heading mt="1" as="h4" size="md" lineHeight="tight">
+          <Heading
+            mt="1"
+            as="h4"
+            size="md"
+            lineHeight="tight"
+            aria-label="repo name"
+          >
+            <Link href={repo.html_url} isExternal>
               {repo.name}
-            </Heading>
-          </Link>
+            </Link>
+          </Heading>
 
-          <Text>{repo.description}</Text>
+          <Text aria-label="repo description">{repo.description}</Text>
         </Box>
       ))}
     </SimpleGrid>
