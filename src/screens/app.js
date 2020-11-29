@@ -11,7 +11,6 @@ import {
   InputGroup,
   Input,
   InputRightElement,
-  Tooltip,
   IconButton,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
@@ -62,6 +61,7 @@ export default function App() {
       <Box w="full" as="form" onSubmit={handleSearch}>
         <InputGroup>
           <Input
+            isRequired
             autoFocus
             id="search"
             type="search"
@@ -69,15 +69,13 @@ export default function App() {
             placeholder="Search github username"
           />
           <InputRightElement>
-            <Tooltip hasArrow label="Search github username">
-              <IconButton
-                size="sm"
-                h="1.75rem"
-                type="submit"
-                icon={<SearchIcon />}
-                aria-label="Search github username"
-              />
-            </Tooltip>
+            <IconButton
+              size="sm"
+              h="1.75rem"
+              type="submit"
+              icon={<SearchIcon />}
+              aria-label="Search github username"
+            />
           </InputRightElement>
         </InputGroup>
       </Box>
