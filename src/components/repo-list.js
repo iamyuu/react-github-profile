@@ -38,17 +38,15 @@ export default function ReposDataView({ username }) {
   }
 
   return (
-    <SimpleGrid columns="2" spacingX="4" spacingY="2">
+    <SimpleGrid spacing="4" minChildWidth="360px">
       {repos.map(repo => (
         <Box
           key={repo.id}
           p="4"
-          m="2"
           w="100%"
           as="section"
-          borderWidth="1px"
+          boxShadow="md"
           borderRadius="lg"
-          boxShadow="0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)"
         >
           <Wrap>
             <WrapItem
@@ -82,7 +80,7 @@ export default function ReposDataView({ username }) {
             )}
           </Wrap>
 
-          <Link href={repo.html_url} breakout isExternal>
+          <Link href={repo.html_url} isExternal>
             <Heading mt="1" as="h4" size="md" lineHeight="tight">
               {repo.name}
             </Heading>
