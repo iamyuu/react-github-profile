@@ -32,17 +32,6 @@ test('renders the app screens', () => {
   ).toBeInTheDocument();
 });
 
-test('get an alert if the username is not valid', () => {
-  render(<App />);
-
-  userEvent.type(screen.getByRole('searchbox'), 'x$y%z');
-  userEvent.click(
-    screen.getByRole('button', { name: /search github username/i })
-  );
-
-  expect(screen.getByRole('alert')).toHaveTextContent(/invalid username/i);
-});
-
 describe('console error', () => {
   beforeAll(() => {
     jest.spyOn(console, 'error').mockImplementation(() => {});
@@ -50,6 +39,12 @@ describe('console error', () => {
 
   afterAll(() => {
     console.error.mockRestore();
+  });
+
+  test('get an alert if the username is not valid', async () => {
+    await renderAppScreen({ username: 'x$y%z' });
+
+    expect(screen.getByRole('alert')).toHaveTextContent(/invalid username/i);
   });
 
   test('get an alert if the username not found', async () => {

@@ -12,6 +12,7 @@ import {
   Spinner,
   SimpleGrid,
 } from '@chakra-ui/react';
+import { username as validateUsername } from 'utils/validation';
 
 export function ReposFallback() {
   return (
@@ -27,10 +28,13 @@ function ReposEmptyState() {
 
 // TODO: implementing infinite scroll
 export default function ReposDataView({ username }) {
-  const { data: repos, error } = useSWR(`/users/${username}/repos`);
+  const { isValid, error } = validateUsername(username);
+  const { data: repos, error: apiError } = useSWR(
+    isValid ? `/users/${username}/repos` : null
+  );
 
-  if (error) {
-    throw error;
+  if (error || apiError) {
+    throw error || apiError;
   }
 
   if (repos.length < 1) {

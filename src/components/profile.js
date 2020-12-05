@@ -10,6 +10,7 @@ import {
   Skeleton,
   SkeletonCircle,
 } from '@chakra-ui/react';
+import { username as validateUsername } from 'utils/validation';
 
 export function ProfileFallback() {
   return (
@@ -22,10 +23,13 @@ export function ProfileFallback() {
 }
 
 export default function ProfileDataView({ username }) {
-  const { data: profile, error } = useSWR(`/users/${username}`);
+  const { isValid, error } = validateUsername(username);
+  const { data: profile, error: apiError } = useSWR(
+    isValid ? `/users/${username}` : null
+  );
 
-  if (error) {
-    throw error;
+  if (error || apiError) {
+    throw error || apiError;
   }
 
   return (

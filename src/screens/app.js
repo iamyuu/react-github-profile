@@ -33,27 +33,14 @@ function EmptyState() {
   return <Text mt="6">Find your github profile</Text>;
 }
 
-const validateGithubUsername = username =>
-  /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i.test(username);
-
 export default function App() {
   const [username, setUsername] = React.useState('');
-  const [error, setError] = React.useState(undefined);
 
   function handleSearch(event) {
     event.preventDefault();
 
-    setError(undefined);
-
     const searchValue = event.target.elements.search.value;
-
-    if (!searchValue) {
-      setUsername('');
-    } else if (!validateGithubUsername(searchValue)) {
-      setError(new Error('Invalid username'));
-    } else {
-      setUsername(searchValue);
-    }
+    setUsername(searchValue);
   }
 
   return (
@@ -61,8 +48,8 @@ export default function App() {
       <Box w="full" as="form" onSubmit={handleSearch}>
         <InputGroup>
           <Input
-            isRequired
             autoFocus
+            isRequired
             id="search"
             type="search"
             variant="filled"
@@ -80,10 +67,7 @@ export default function App() {
         </InputGroup>
       </Box>
 
-      {!username && !error ? <EmptyState /> : null}
-      {error ? <ErrorFallback error={error} /> : null}
-
-      {username && !error ? (
+      {username ? (
         <ErrorBoundary resetKeys={[username]} FallbackComponent={ErrorFallback}>
           <Box my="6">
             <React.Suspense fallback={<ProfileFallback />}>
@@ -95,7 +79,9 @@ export default function App() {
             <ReposDataView username={username} />
           </React.Suspense>
         </ErrorBoundary>
-      ) : null}
+      ) : (
+        <EmptyState />
+      )}
     </Container>
   );
 }
