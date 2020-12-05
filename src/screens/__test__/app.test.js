@@ -1,4 +1,4 @@
-import { render, screen, waitForLoadingToFinish } from 'test/test-utils';
+import { render, screen, waitForLoadingToFinish, act } from 'test/test-utils';
 import { server, rest } from 'test/server';
 import userEvent from '@testing-library/user-event';
 import App from 'screens/app';
@@ -6,6 +6,8 @@ import App from 'screens/app';
 const API_URL = process.env.REACT_APP_API_URL;
 
 const renderAppScreen = async ({ username } = {}) => {
+  jest.useFakeTimers();
+
   const utils = render(<App />);
 
   if (!username) {
@@ -13,9 +15,7 @@ const renderAppScreen = async ({ username } = {}) => {
   }
 
   userEvent.type(screen.getByRole('searchbox'), username);
-  userEvent.click(
-    screen.getByRole('button', { name: /search github username/i })
-  );
+  act(() => jest.advanceTimersByTime(510));
 
   await waitForLoadingToFinish();
 
@@ -25,11 +25,8 @@ const renderAppScreen = async ({ username } = {}) => {
 test('renders the app screens', () => {
   render(<App />);
 
-  expect(screen.getByText(/find your github profile/i)).toBeInTheDocument();
   expect(screen.getByRole('searchbox')).toBeInTheDocument();
-  expect(
-    screen.getByRole('button', { name: /search github username/i })
-  ).toBeInTheDocument();
+  expect(screen.getByText(/find your github profile/i)).toBeInTheDocument();
 });
 
 describe('console error', () => {
@@ -48,14 +45,7 @@ describe('console error', () => {
   });
 
   test('get an alert if the username not found', async () => {
-    render(<App />);
-
-    userEvent.type(screen.getByRole('searchbox'), '404');
-    userEvent.click(
-      screen.getByRole('button', { name: /search github username/i })
-    );
-
-    await waitForLoadingToFinish();
+    await renderAppScreen({ username: '404' });
 
     expect(
       screen.getByRole('alert').querySelector('.chakra-alert__title')
@@ -64,16 +54,13 @@ describe('console error', () => {
   });
 });
 
-test('see avatar, name, username', async () => {
+test('see profile', async () => {
   const { username } = await renderAppScreen();
 
   expect(screen.getByLabelText('avatar')).toBeInTheDocument();
-
   expect(screen.getByLabelText('name')).toBeInTheDocument();
-
   expect(screen.getByLabelText('username')).toBeInTheDocument();
   expect(screen.getByLabelText('username').textContent).toBe(`(@${username})`);
-
   expect(screen.getByLabelText('bio')).toBeInTheDocument();
 });
 

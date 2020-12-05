@@ -11,10 +11,10 @@ import {
   InputGroup,
   Input,
   InputRightElement,
-  IconButton,
 } from '@chakra-ui/react';
 import { SearchIcon } from '@chakra-ui/icons';
 import { ProfileFallback, ReposFallback } from 'components';
+import { useDebounce } from 'utils/hooks';
 
 const ProfileDataView = React.lazy(() => import('components/profile'));
 const ReposDataView = React.lazy(() => import('components/repo-list'));
@@ -35,48 +35,41 @@ function EmptyState() {
 
 export default function App() {
   const [username, setUsername] = React.useState('');
+  const debouncedUsername = useDebounce(username);
 
   function handleSearch(event) {
-    event.preventDefault();
-
-    const searchValue = event.target.elements.search.value;
-    setUsername(searchValue);
+    setUsername(event.target.value);
   }
 
   return (
     <Container p="4" maxW="md" centerContent>
-      <Box w="full" as="form" onSubmit={handleSearch}>
+      <Box w="full">
         <InputGroup>
           <Input
             autoFocus
-            isRequired
             id="search"
             type="search"
             variant="filled"
             placeholder="Search github username"
+            onChange={handleSearch}
           />
-          <InputRightElement>
-            <IconButton
-              size="sm"
-              h="1.75rem"
-              type="submit"
-              icon={<SearchIcon />}
-              aria-label="Search github username"
-            />
-          </InputRightElement>
+          <InputRightElement children={<SearchIcon />} />
         </InputGroup>
       </Box>
 
-      {username ? (
-        <ErrorBoundary resetKeys={[username]} FallbackComponent={ErrorFallback}>
+      {debouncedUsername ? (
+        <ErrorBoundary
+          resetKeys={[debouncedUsername]}
+          FallbackComponent={ErrorFallback}
+        >
           <Box my="6">
             <React.Suspense fallback={<ProfileFallback />}>
-              <ProfileDataView username={username} />
+              <ProfileDataView username={debouncedUsername} />
             </React.Suspense>
           </Box>
 
           <React.Suspense fallback={<ReposFallback />}>
-            <ReposDataView username={username} />
+            <ReposDataView username={debouncedUsername} />
           </React.Suspense>
         </ErrorBoundary>
       ) : (
