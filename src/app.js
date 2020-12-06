@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { SWRConfig } from 'swr';
-
-import { ChakraProvider, theme } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
+import theme from 'theme';
 import client from 'utils/api-client';
 import AppScreen from 'screens/app';
 
