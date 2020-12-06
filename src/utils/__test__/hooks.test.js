@@ -22,3 +22,8 @@ test('update value after specified delay', () => {
   act(() => jest.advanceTimersByTime(3));
   expect(result.current).toBe('Hello World');
 });
+
+// TODO: test intersection observer
+// @see https://github.com/thebuilder/react-intersection-observer/blob/master/src/test-utils.ts
+// @see https://github.com/thebuilder/react-intersection-observer/blob/master/src/__tests__/hooks.test.tsx
+test.todo('useIntersection');
