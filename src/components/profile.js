@@ -28,6 +28,7 @@ export default function ProfileDataView({ username }) {
     isValid ? `/users/${username}` : null
   );
 
+  // TODO: Test this use case
   if (error || apiError) {
     throw error || apiError;
   }
