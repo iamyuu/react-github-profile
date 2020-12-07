@@ -5,10 +5,9 @@ Simple application to display information from GitHub users.
 ## User Stories
 
 - [x] User can enter a username.
-- [x] User can click on search button to retrieve information.
 - [x] User should get an alert if the username is not valid.
 - [x] User should get an alert if the username not found.
-- [x] User can see the avatar, name, username and bio.
+- [x] User can see the profile data such as avatar, name, and username.
 - [x] User can see list repositories.
 - [x] User can see message if the repositories is empty.
 
