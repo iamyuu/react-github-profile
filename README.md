@@ -10,6 +10,7 @@ Simple application to display information from GitHub users.
 - [x] User can see the profile data such as avatar, name, and username.
 - [x] User can see list repositories.
 - [x] User can see message if the repositories is empty.
+- [x] User scroll down to see all other repositories.
 
 ## Available Scripts
 

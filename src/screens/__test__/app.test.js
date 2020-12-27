@@ -2,6 +2,7 @@ import { render, screen, waitForLoadingToFinish, act } from 'test/test-utils';
 import { server, rest } from 'test/server';
 import userEvent from '@testing-library/user-event';
 import App from 'screens/app';
+import { mockAllIsIntersecting } from 'test/intersection-observer-test-utils';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -9,6 +10,8 @@ const renderAppScreen = async ({ username } = {}) => {
   jest.useFakeTimers();
 
   const utils = render(<App />);
+
+  mockAllIsIntersecting(true);
 
   if (!username) {
     username = 'USERNAME';
@@ -88,3 +91,5 @@ test('see list repositories', async () => {
   expect(screen.getAllByLabelText('repo name')[0]).toBeInTheDocument();
   expect(screen.getAllByLabelText('repo description')[0]).toBeInTheDocument();
 });
+
+test.todo('scroll down to see all other repositories');
