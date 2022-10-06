@@ -1,0 +1,15 @@
+{
+    "name": "webdriverio-tests",
+    "version": "0.1.0",
+    "description": "",
+    "private": true,
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@wdio/cli": "7.25.1"
+    },
+    "scripts": {
+        "wdio": "wdio run wdio.conf.js"
+    }
+}
